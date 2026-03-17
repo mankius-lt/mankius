@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mankius</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; color: #1a1a1a; background: #fff; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ── TOP BAR ─────────────────────────────────────────────── */
+    .top-bar { background: #c84b0a; color: #fff; font-size: 12px; font-weight: 500; padding: 6px 0; }
+    .top-bar-inner { max-width: 1320px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: flex-end; gap: 24px; align-items: center; }
+    .top-bar a { color: #fff; display: flex; align-items: center; gap: 6px; transition: opacity .2s; }
+    .top-bar a:hover { opacity: .85; }
+
+    /* ── HEADER ──────────────────────────────────────────────── */
+    .header { background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 1320px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 20px; }
+    .logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .logo-icon { height: 25px; width: auto; }
+    .logo-text { font-size: 22px; font-weight: 800; color: #1a1a1a; letter-spacing: 1px; }
+    .search-wrap { flex: 1; max-width: 540px; position: relative; }
+    .search-wrap form { display: flex; }
+    .search-wrap input { width: 100%; padding: 10px 44px 10px 16px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; transition: border-color .2s; color: #555; }
+    .search-wrap input:focus { border-color: #e8611a; }
+    .search-wrap button { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #888; display: flex; align-items: center; }
+    .header-actions { display: flex; align-items: center; gap: 18px; margin-left: auto; }
+    .header-link { display: flex; align-items: center; gap: 6px; color: #333; font-size: 13px; font-weight: 500; transition: color .2s; white-space: nowrap; }
+    .header-link:hover { color: #e8611a; }
+    .header-icon-btn { background: none; border: none; color: #333; display: flex; align-items: center; position: relative; padding: 4px; transition: color .2s; }
+    .header-icon-btn:hover { color: #e8611a; }
+    .cart-badge { position: absolute; top: -4px; right: -6px; background: #e8611a; color: #fff; font-size: 10px; font-weight: 700; border-radius: 50%; width: 17px; height: 17px; display: flex; align-items: center; justify-content: center; }
+
+    /* ── NAV BAR ─────────────────────────────────────────────── */
+    .nav-bar { background: #fff; border-bottom: 1px solid #eee; }
+    .nav-inner { max-width: 1320px; margin: 0 auto; padding: 0 20px; display: flex; align-items: stretch; }
+    .nav-item { position: relative; display: flex; align-items: center; gap: 8px; padding: 8px 14px; font-size: 13px; font-weight: 500; color: #222; white-space: nowrap; cursor: pointer; transition: background .15s; border-bottom: 2px solid transparent; }
+    .nav-item:hover { color: #e8611a; border-bottom-color: #e8611a; }
+    .nav-item img { width: 32px; height: 32px; object-fit: contain; }
+    .nav-item.all-items { margin-left: auto; gap: 8px; align-items: center; }
+    .nav-item .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.12); min-width: 220px; z-index: 200; padding: 8px 0; }
+    .nav-item:hover .dropdown { display: block; }
+    .dropdown a { display: block; padding: 9px 18px; font-size: 13px; color: #333; transition: background .15s, color .15s; }
+    .dropdown a:hover { background: #fff5f0; color: #e8611a; }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    .hero-wrap { max-width: 1320px; margin: 12px auto; padding: 0 20px; }
+    .hero { position: relative; border-radius: 8px; height: 400px; overflow: hidden; background: #2d5228; }
+    .hero-bg { width: 100%; height: 100%; object-fit: cover; object-position: center right; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,.55) 40%, rgba(0,0,0,.05) 100%); }
+    .hero-badge { position: absolute; top: 10px; left: 16px; width: 174px; height: 65px; display: block; }
+    .hero-content { position: absolute; bottom: 60px; left: 60px; color: #fff; }
+    .hero-pretitle { font-size: 14px; font-weight: 500; margin-bottom: 8px; opacity: .9; }
+    .hero-title { font-size: 36px; font-weight: 800; margin-bottom: 24px; line-height: 1.15; max-width: 520px; }
+    .btn-primary { background: #e8611a; color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-size: 15px; font-weight: 600; transition: background .2s; display: inline-block; }
+    .btn-primary:hover { background: #cf550f; }
+
+    /* ── PROMO BANNERS ───────────────────────────────────────── */
+    .promo-grid { max-width: 1320px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .promo-card { position: relative; border-radius: 12px; overflow: hidden; height: 260px; background: #333; display: block; }
+    .promo-card img { width: 100%; height: 100%; object-fit: cover; }
+
+    .promo-card-content { position: absolute; bottom: 28px; left: 28px; color: #fff; }
+    .promo-card-title { font-size: 22px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; max-width: 200px; }
+
+    /* ── CATEGORY GRID ───────────────────────────────────────── */
+    .category-section { max-width: 1320px; margin: 24px auto; padding: 0 20px; }
+    .category-grid { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
+    .category-grid::-webkit-scrollbar { display: none; }
+    .cat-tile { flex: 0 0 calc(12.5% - 9px); min-width: 130px; border: 1.5px solid #eee; border-radius: 10px; padding: 14px 10px 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: border-color .2s, box-shadow .2s; text-align: center; }
+    .cat-tile:hover { border-color: #e8611a; box-shadow: 0 2px 12px rgba(232,97,26,.12); }
+    .cat-tile img { width: 64px; height: 64px; object-fit: contain; }
+    .cat-tile .cat-label { font-size: 12px; font-weight: 600; color: #222; line-height: 1.3; }
+    .cat-tile.sale-tile { background: #cc2222; border-color: #cc2222; }
+    .cat-tile.sale-tile .cat-label { color: #fff; }
+    .cat-tile.sale-tile .cat-percent { width: 40px; height: 40px; border: 2.5px solid rgba(255,255,255,.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; font-weight: 800; }
+
+    /* ── PRODUCT SECTIONS ────────────────────────────────────── */
+    .products-section { max-width: 1320px; margin: 32px auto; padding: 0 20px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .section-title { font-size: 22px; font-weight: 800; }
+    .see-all { font-size: 14px; font-weight: 600; color: #1a1a1a; border-bottom: 2px solid #e8611a; padding-bottom: 2px; transition: color .2s; }
+    .see-all:hover { color: #e8611a; }
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .product-card { border: 1.5px solid #eee; border-radius: 10px; overflow: hidden; background: #fff; transition: box-shadow .2s, border-color .2s; display: flex; flex-direction: column; }
+    .product-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); border-color: #ddd; }
+    .product-img-wrap { position: relative; background: #fff; aspect-ratio: 4/3; overflow: hidden; }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 0; }
+    .badge-sale { position: absolute; top: 10px; left: 10px; background: #e02020; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; letter-spacing: .5px; }
+    .wishlist-btn { position: absolute; top: 8px; right: 8px; background: none; border: none; color: #bbb; display: flex; transition: color .2s; }
+    .wishlist-btn:hover { color: #e8611a; }
+    .product-body { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .product-name { font-size: 13px; font-weight: 600; color: #1a1a1a; line-height: 1.4; flex: 1; }
+    .product-delivery { display: flex; align-items: center; gap: 6px; color: #666; font-size: 12px; }
+    .product-price { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+    .product-price .old-price { font-size: 13px; font-weight: 400; color: #999; text-decoration: line-through; margin-left: 6px; }
+    .product-price .sale-price { color: #e02020; }
+    .artea-badge { background: #f0f0f0; border-radius: 6px; padding: 5px 8px; display: flex; align-items: center; gap: 6px; font-size: 11px; color: #444; }
+    .artea-badge img { height: 16px; width: auto; flex-shrink: 0; }
+    .in-stock { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #444; background: #f5f5f5; border-radius: 6px; padding: 6px 10px; }
+    .in-stock::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #22aa44; flex-shrink: 0; }
+    .stars { color: #f5a623; font-size: 12px; }
+
+    /* ── FINDER WIDGET ───────────────────────────────────────── */
+    .finder-section { position: relative; height: 420px; overflow: hidden; background: #3a4a3a; margin: 32px 0; }
+    .finder-section > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .finder-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,.65) 40%, rgba(0,0,0,.15) 100%); }
+    .finder-inner { position: absolute; inset: 0; max-width: 1320px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 40px; left: 50%; transform: translateX(-50%); width: 100%; }
+    .finder-text { color: #fff; max-width: 380px; }
+    .finder-text h2 { font-size: 28px; font-weight: 800; line-height: 1.25; margin-bottom: 20px; }
+    .btn-outline-white { display: inline-block; border: 2px solid #e8611a; color: #fff; background: none; border-radius: 8px; padding: 10px 22px; font-size: 14px; font-weight: 600; transition: background .2s; }
+    .btn-outline-white:hover { background: #e8611a; }
+    .finder-card { background: #fff; border-radius: 12px; padding: 24px; width: 340px; flex-shrink: 0; box-shadow: 0 4px 24px rgba(0,0,0,.18); }
+    .finder-card h3 { font-size: 13px; font-weight: 600; color: #444; margin-bottom: 10px; }
+    .toggle-group { display: flex; gap: 6px; margin-bottom: 18px; }
+    .toggle-btn { flex: 1; padding: 8px 6px; border: 1.5px solid #ddd; border-radius: 6px; background: #fff; font-size: 13px; font-weight: 500; color: #333; transition: all .15s; }
+    .toggle-btn.active { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+    .toggle-btn:hover:not(.active) { border-color: #888; }
+    .price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .price-input-wrap { flex: 1; position: relative; }
+    .price-input-wrap input { width: 100%; padding: 8px 28px 8px 10px; border: 1.5px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 13px; }
+    .price-input-wrap span { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #888; }
+    .price-sep { font-size: 16px; color: #888; }
+    .btn-orange-full { width: 100%; background: #e8611a; color: #fff; border: none; border-radius: 8px; padding: 12px; font-size: 15px; font-weight: 700; transition: background .2s; }
+    .btn-orange-full:hover { background: #cf550f; }
+
+    /* ── VIDEO SECTION ───────────────────────────────────────── */
+    .video-section { max-width: 1320px; margin: 32px auto; padding: 0 20px; }
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .video-card { cursor: pointer; }
+    .video-thumb { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 16/9; background: #222; margin-bottom: 10px; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play-circle { width: 52px; height: 52px; border-radius: 50%; background: #e8611a; display: flex; align-items: center; justify-content: center; transition: transform .2s; }
+    .video-card:hover .play-circle { transform: scale(1.1); }
+    .video-duration { position: absolute; bottom: 8px; left: 10px; background: rgba(0,0,0,.7); color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 4px; display: flex; align-items: center; gap: 4px; }
+    .video-title { font-size: 14px; font-weight: 600; color: #1a1a1a; line-height: 1.35; }
+
+    /* ── STORES SECTION ──────────────────────────────────────── */
+    .stores-section { background: #f5f5f5; padding: 40px 20px; margin: 32px 0; }
+    .stores-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .stores-title { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
+    .stores-desc { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 24px; }
+    .stores-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .store-feature { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; font-weight: 500; }
+    .store-feature .feat-icon { font-size: 22px; line-height: 1; flex-shrink: 0; }
+    .store-cards { display: flex; flex-direction: column; gap: 10px; }
+    .store-card { background: #fff; border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+    .store-card-info strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .store-card-info span { font-size: 13px; color: #666; }
+    .store-map-link { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #1a1a1a; border: 1.5px solid #ddd; border-radius: 8px; padding: 7px 14px; transition: border-color .2s; white-space: nowrap; }
+    .store-map-link:hover { border-color: #e8611a; color: #e8611a; }
+    .stores-photo { border-radius: 14px; overflow: hidden; min-height: 340px; background: #ccc; position: relative; }
+    .stores-photo img { width: 100%; height: 100%; object-fit: cover; min-height: 340px; }
+
+    /* ── COMMUNITY SECTION ───────────────────────────────────── */
+    .community-section { max-width: 1320px; margin: 32px auto; padding: 0 20px; }
+    .community-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .community-header h2 { font-size: 22px; font-weight: 800; }
+    .social-icons { display: flex; gap: 8px; }
+    .social-icon-btn { width: 38px; height: 38px; border: 1.5px solid #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: border-color .2s, color .2s; color: #444; }
+    .social-icon-btn:hover { border-color: #e8611a; color: #e8611a; }
+    .social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .social-post { border-radius: 10px; overflow: hidden; aspect-ratio: 3/4; background: #ddd; position: relative; }
+    .social-post img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── NEWSLETTER ──────────────────────────────────────────── */
+    .newsletter-section { max-width: 1320px; margin: 32px auto; padding: 0 20px; }
+    .newsletter-card { background: #f5f5f5; border-radius: 14px; padding: 40px 40px 0; text-align: center; position: relative; overflow: hidden; }
+    .newsletter-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 24px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.4; }
+    .newsletter-form { display: flex; justify-content: center; gap: 10px; margin-bottom: 28px; }
+    .newsletter-input-wrap { position: relative; width: 380px; }
+    .newsletter-input-wrap .nl-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; object-fit: contain; }
+    .newsletter-input-wrap input { width: 100%; padding: 12px 16px 12px 44px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; font-family: inherit; background: #fff; outline: none; }
+    .newsletter-input-wrap input:focus { border-color: #e8611a; }
+    .newsletter-mascot { display: block; height: 80px; margin: 0 auto; }
+
+    /* ── EMBED SECTIONS ─────────────────────────────────────── */
+    .embed-section { padding: 40px 0; border-top: 1px solid #eee; }
+    .embed-section.alt-bg { background: #f5f5f5; }
+    .embed-section-inner { max-width: 1320px; margin: 0 auto; padding: 0 20px; }
+    .embed-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+    .embed-header h2 { font-size: 22px; font-weight: 800; }
+    .embed-header span { font-size: 13px; color: #888; }
+    .embed-frame-wrap { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 2px 16px rgba(0,0,0,.07); background: #f9f9f9; }
+    .embed-frame-wrap iframe { width: 100%; border: none; display: block; }
+    .embed-frame-wrap.aspect-16-9 { position: relative; padding-bottom: 56.25%; height: 0; }
+    .embed-frame-wrap.aspect-16-9 iframe { position: absolute; inset: 0; height: 100%; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer { background: #f5f5f5; padding: 48px 20px 0; margin-top: 40px; }
+    .footer-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 40px; }
+    .footer-col h4 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: #1a1a1a; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { font-size: 13px; color: #555; transition: color .2s; }
+    .footer-col ul li a:hover { color: #e8611a; }
+    .footer-store-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px; font-size: 13px; color: #555; }
+    .footer-contact-item { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 13px; color: #555; }
+    .footer-contact-item a { color: #555; transition: color .2s; }
+    .footer-contact-item a:hover { color: #e8611a; }
+    .footer-social { display: flex; gap: 8px; margin-top: 16px; }
+    .footer-bottom { max-width: 1320px; margin: 0 auto; padding: 18px 0; border-top: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copyright { font-size: 13px; color: #888; }
+    .back-to-top { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #555; background: none; border: none; cursor: pointer; font-family: inherit; transition: color .2s; }
+    .back-to-top:hover { color: #e8611a; }
+    .payment-row { max-width: 1320px; margin: 0 auto; padding: 16px 0 24px; display: flex; flex-wrap: nowrap; gap: 0; align-items: center; }
+    .payment-badge { background: #fff; border: none; border-radius: 0; padding: 8px 4px; display: flex; align-items: center; justify-content: center; height: 36px; }
+    .payment-badge img { height: 13px; width: auto; object-fit: contain; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="https://mankius.lt/info/1-pristatymas">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+      Prekės grąžinimas
+    </a>
+    <a href="https://mankius.lt/uzsakymo-sekimas">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Užsakymo sekimas
+    </a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="https://mankius.lt/" class="logo">
+      <img src="https://mankius.lt/img/logo-1761194818.jpg" class="logo-icon" alt="Mankius" />
+    </a>
+
+    <div class="search-wrap">
+      <form action="https://mankius.lt/paieska" method="get">
+        <input type="text" name="q" placeholder="Ieškoti tarp 50177 prekių" />
+        <button type="submit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="header-actions">
+      <a href="https://mankius.lt/parduotuves" class="header-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Mūsų parduotuvės
+      </a>
+      <a href="tel:+37067747967" class="header-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 17z"/></svg>
+        +37067747967
+      </a>
+      <a href="https://mankius.lt/mano-paskyra" class="header-icon-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="https://mankius.lt/patikusios-prekes" class="header-icon-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </a>
+      <a href="https://mankius.lt/krepselis" class="header-icon-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- CATEGORY NAV -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+
+    <div class="nav-item">
+      <img src="https://mankius.lt/img/c/265_thumb-category_cover.jpg" alt="Elektrinis Mobilumas" />
+      <span>Elektrinis<br>Mobilumas</span>
+      <div class="dropdown">
+        <a href="https://mankius.lt/265-elektrine-technika">Visi elektriniai mobilumai</a>
+        <a href="https://www.mankius.lt/lt/4475-elektriniai-triraciai">Elektriniai triračiai</a>
+        <a href="https://www.mankius.lt/lt/4229-mopedai-ir-motoroleriai">Mopedai ir motoroleriai</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <img src="https://mankius.lt/img/c/3869_thumb-category_cover.jpg" alt="Keturačiai" />
+      <span>Keturačiai<br>(ATV, UTV)</span>
+      <div class="dropdown">
+        <a href="https://mankius.lt/3869-mototechnika">Visi keturačiai</a>
+        <a href="https://mankius.lt/305-elektriniai-krosiniai-motociklai">Elektriniai krosiniai motociklai</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <img src="https://mankius.lt/img/c/4498_thumb-category_cover.jpg" alt="Motociklai" />
+      <span>Motociklai</span>
+      <div class="dropdown">
+        <a href="https://mankius.lt/4498-motociklai">Visi motociklai</a>
+        <a href="https://mankius.lt/305-elektriniai-krosiniai-motociklai">Elektriniai krosiniai motociklai</a>
+        <a href="https://www.mankius.lt/lt/4229-mopedai-ir-motoroleriai">Mopedai ir motoroleriai</a>
+        <a href="https://www.mankius.lt/lt/4475-elektriniai-triraciai">Elektriniai triračiai</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <img src="https://mankius.lt/img/c/230_thumb-category_cover.jpg" alt="Dviračiai" />
+      <span>Dviračiai</span>
+      <div class="dropdown">
+        <a href="https://mankius.lt/230-dviraciai-paspirtukai-dalys">Visi dviračiai</a>
+        <a href="https://mankius.lt/3660-elektriniai-dviraciai">Elektriniai dviračiai</a>
+        <a href="https://mankius.lt/250-dviraciai-vaikams">Dviračiai vaikams</a>
+        <a href="https://mankius.lt/311-dviraciai-paaugliams">Dviračiai paaugliams</a>
+        <a href="https://mankius.lt/245-kalnu-dviraciai-mtb">Kalnų dviračiai (MTB)</a>
+        <a href="https://mankius.lt/246-miesto-dviraciai">Miesto dviračiai</a>
+        <a href="https://mankius.lt/308-hibridiniai-dviraciai">Hibridiniai dviračiai</a>
+        <a href="https://mankius.lt/1229-turistiniai-dviraciai">Turistiniai dviračiai</a>
+        <a href="https://mankius.lt/1233-sulankstomi-dviraciai">Sulankstomi dviračiai</a>
+        <a href="https://mankius.lt/247-dviraciai-bmx">Dviračiai BMX</a>
+        <a href="https://mankius.lt/1261-plento-dviraciai">Plento dviračiai</a>
+        <a href="https://mankius.lt/1321-gravel-dviraciai">Gravel dviračiai</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <img src="https://mankius.lt/img/c/2751_thumb-category_cover.jpg" alt="Elektromobiliai vaikams" />
+      <span>Elektromobiliai<br>vaikams</span>
+      <div class="dropdown">
+        <a href="https://mankius.lt/2751-elektromobiliai-vaikams-zaislai">Visi elektromobiliai vaikams</a>
+        <a href="https://mankius.lt/2751-elektromobiliai-vaikams-zaislai">Elektromobiliai vaikams (žaislai)</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <img src="https://mankius.lt/img/c/6043_thumb-category_cover.jpg" alt="Apsaugos Apranga" />
+      <span>Apsaugos<br>Apranga</span>
+      <div class="dropdown">
+        <a href="https://mankius.lt/6043-salmai-apranga-apsaugos">Visa apsauginė apranga</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <img src="https://mankius.lt/img/c/62_thumb-category_cover.jpg" alt="Dalys Aksesuarai" />
+      <span>Dalys<br>Aksesuarai</span>
+      <div class="dropdown">
+        <a href="https://mankius.lt/62-moto-atsargines-dalys">Visos dalys ir aksesuarai</a>
+      </div>
+    </div>
+
+    <div class="nav-item all-items">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <a href="https://mankius.lt/">Visos prekės</a>
+    </div>
+
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="hero-wrap">
+<section class="hero">
+  <img class="hero-bg" src="https://mankius.lt/img/sliders/2025-10/keturaciai-elektriniai-lt.jpg" alt="Vaikiški elektriniai keturačiai" />
+  <div class="hero-overlay"></div>
+  <img class="hero-badge" src="https://mankius.lt/themes/mankius/assets/img/icons/mankius-top-icon.png" alt="Mankius - Vaikiški elektriniai keturačiai" />
+  <div class="hero-content">
+    <p class="hero-pretitle">2026 m. naujienos</p>
+    <h1 class="hero-title">Vaikiški elektriniai keturačiai</h1>
+    <a href="https://mankius.lt/304-elektriniai-keturraciai" class="btn-primary">Apsipirkti dabar</a>
+  </div>
+</section>
+</div>
+
+<!-- PROMO BANNERS -->
+<div class="promo-grid">
+  <a href="https://mankius.lt/3660-elektriniai-dviraciai" class="promo-card">
+    <img src="https://mankius.lt/img/banners/2025-10/elektrinis-dviratis-en.jpg" alt="Engwe elektriniai dviračiai" />
+
+    <div class="promo-card-content">
+      <p class="promo-card-title">Engwe elektriniai dviračiai</p>
+      <span class="btn-primary" style="font-size:13px;padding:9px 18px">Apsipirkti dabar</span>
+    </div>
+  </a>
+  <a href="https://mankius.lt/265-elektrine-technika" class="promo-card">
+    <img src="https://mankius.lt/img/banners/2025-10/elektrinis-transportas-en.jpg" alt="Elektrinis transportas kiekvienam" />
+
+    <div class="promo-card-content">
+      <p class="promo-card-title">Elektrinis transportas kiekvienam!</p>
+      <span class="btn-primary" style="font-size:13px;padding:9px 18px">Apsipirkti dabar</span>
+    </div>
+  </a>
+</div>
+
+<!-- CATEGORY ICON GRID -->
+<div class="category-section">
+  <div class="category-grid">
+    <a href="https://mankius.lt/265-elektrine-technika" class="cat-tile">
+      <img src="https://mankius.lt/img/c/265.jpg" alt="Elektrinis mobilumas" />
+      <span class="cat-label">Elektrinis mobilumas</span>
+    </a>
+    <a href="https://mankius.lt/3869-mototechnika" class="cat-tile">
+      <img src="https://mankius.lt/img/c/3869.jpg" alt="Keturračiai (ATV, UTV)" />
+      <span class="cat-label">Keturračiai (ATV, UTV)</span>
+    </a>
+    <a href="https://mankius.lt/305-elektriniai-krosiniai-motociklai" class="cat-tile">
+      <img src="https://mankius.lt/img/c/4498.jpg" alt="Krosiniai motociklai" />
+      <span class="cat-label">Krosiniai motociklai</span>
+    </a>
+    <a href="https://mankius.lt/230-dviraciai-paspirtukai-dalys" class="cat-tile">
+      <img src="https://mankius.lt/img/c/230.jpg" alt="Dviračiai" />
+      <span class="cat-label">Dviračiai</span>
+    </a>
+    <a href="https://mankius.lt/2751-elektromobiliai-vaikams-zaislai" class="cat-tile">
+      <img src="https://mankius.lt/img/c/2751.jpg" alt="Elektromobiliai vaikams ir priedai" />
+      <span class="cat-label">Elektromobiliai vaikams ir priedai</span>
+    </a>
+    <a href="https://mankius.lt/6043-salmai-apranga-apsaugos" class="cat-tile">
+      <img src="https://mankius.lt/img/c/6043.jpg" alt="Apranga Apsaugos" />
+      <span class="cat-label">Apranga Apsaugos</span>
+    </a>
+    <a href="https://mankius.lt/62-moto-atsargines-dalys" class="cat-tile">
+      <img src="https://mankius.lt/img/c/62.jpg" alt="Dalys Aksesuarai" />
+      <span class="cat-label">Dalys Aksesuarai</span>
+    </a>
+    <a href="https://mankius.lt/" class="cat-tile sale-tile">
+      <div class="cat-percent">%</div>
+      <span class="cat-label">Pasiūlymai</span>
+    </a>
+  </div>
+</div>
+
+<!-- KETURAČIAI PRODUCTS -->
+<section class="products-section">
+  <div class="section-header">
+    <h2 class="section-title">Keturačiai</h2>
+    <a href="https://mankius.lt/3869-mototechnika" class="see-all">Žiūrėti viską</a>
+  </div>
+  <div class="products-grid">
+
+    <a href="https://mankius.lt/3869-mototechnika" class="product-card">
+      <div class="product-img-wrap">
+        <span class="badge-sale">AKCIJA</span>
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/749149-default_md/kopija-is-kopija-is-elektrinis-keturratis-monkey-ren-12.jpg" alt="Vaikiškas Elektrinis keturratis Monkey Ren 1200w" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">kopija iš Vaikiškas Elektrinis keturratis Monkey Ren 1200w</p>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Pristatymas 1-2 d.d.</div>
+        <p class="product-price"><span class="sale-price">999,00 €</span><span class="old-price">1 009,00 €</span></p>
+        <div class="artea-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/artea.png" alt="Artea" />333,00 €/mėn. be pabrangimo<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+    <a href="https://mankius.lt/3869-mototechnika" class="product-card">
+      <div class="product-img-wrap">
+        <span class="badge-sale">AKCIJA</span>
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/749139-default_md/kopija-is-elektrinis-keturratis-monkey-ren-12.jpg" alt="Vaikiškas Elektrinis keturratis Monkey Ren 1200w žalias" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">Vaikiškas Elektrinis keturratis Monkey Ren 1200w</p>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Pristatymas 1-2 d.d.</div>
+        <p class="product-price"><span class="sale-price">999,00 €</span><span class="old-price">1 009,00 €</span></p>
+        <div class="artea-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/artea.png" alt="Artea" />333,00 €/mėn. be pabrangimo<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+    <a href="https://mankius.lt/3869-mototechnika" class="product-card">
+      <div class="product-img-wrap">
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/749125-default_md/kopija-is-elektrinis-keturratis-falcon-1000w-48v-reduktorius.jpg" alt="Elektrinis keturratis Falcon 1000W 48V Reduktorius" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">Elektrinis keturratis Falcon 1000W 48V Reduktorius</p>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Pristatymas 1-2 d.d.</div>
+        <p class="product-price">929,00 €</p>
+        <div class="artea-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/artea.png" alt="Artea" />309,67 €/mėn. be pabrangimo<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+    <a href="https://mankius.lt/3869-mototechnika" class="product-card">
+      <div class="product-img-wrap">
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/749108-default_md/kopija-is-elektrinis-keturratis-falcon-1000w-36v-reduktorius.jpg" alt="Elektrinis keturratis Falcon 1000W 36V Reduktorius" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">Elektrinis keturratis Falcon 1000W 36V Reduktorius</p>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Pristatymas 1-2 d.d.</div>
+        <p class="product-price">779,00 €</p>
+        <div class="artea-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/artea.png" alt="Artea" />259,67 €/mėn. be pabrangimo<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- PRODUCT FINDER WIDGET -->
+<section class="finder-section">
+  <img src="https://mankius.lt/img/banners/2025-10/elektrinis-transportas-en.jpg" alt="Elektrinis mobilumo priemonė" />
+  <div class="finder-overlay"></div>
+  <div class="finder-inner">
+    <div class="finder-text">
+      <h2>Surasite tobulą elektrinę mobilumo priemonę pagal poreikius</h2>
+      <a href="https://mankius.lt/265-elektrine-technika" class="btn-outline-white">Žiūrėti visas</a>
+    </div>
+    <div class="finder-card">
+      <h3>Ratų skaičius:</h3>
+      <div class="toggle-group">
+        <button class="toggle-btn active" onclick="toggleBtn(this)">2</button>
+        <button class="toggle-btn" onclick="toggleBtn(this)">3</button>
+        <button class="toggle-btn" onclick="toggleBtn(this)">4</button>
+      </div>
+      <h3>Nuvažiojamas atstumas:</h3>
+      <div class="toggle-group">
+        <button class="toggle-btn active" onclick="toggleBtn(this)">iki 30 km</button>
+        <button class="toggle-btn" onclick="toggleBtn(this)">30 - 60 km</button>
+        <button class="toggle-btn" onclick="toggleBtn(this)">nuo 60 km</button>
+      </div>
+      <h3>Amžius:</h3>
+      <div class="toggle-group">
+        <button class="toggle-btn active" onclick="toggleBtn(this)">Vaikas</button>
+        <button class="toggle-btn" onclick="toggleBtn(this)">Suaugęs</button>
+        <button class="toggle-btn" onclick="toggleBtn(this)">Senjoras</button>
+      </div>
+      <h3>Kaina:</h3>
+      <div class="price-row">
+        <div class="price-input-wrap"><input type="number" value="0" min="0" /><span>€</span></div>
+        <span class="price-sep">—</span>
+        <div class="price-input-wrap"><input type="number" value="5000" min="0" /><span>€</span></div>
+      </div>
+      <a href="https://mankius.lt/265-elektrine-technika"><button class="btn-orange-full">Rodyti rezultatus</button></a>
+    </div>
+  </div>
+</section>
+
+<!-- ĮRANKIAI PRODUCTS -->
+<section class="products-section">
+  <div class="section-header">
+    <h2 class="section-title">Įrankiai</h2>
+    <a href="https://mankius.lt/1450-irankiai" class="see-all">Žiūrėti viską</a>
+  </div>
+  <div class="products-grid">
+
+    <a href="https://mankius.lt/1450-irankiai" class="product-card">
+      <div class="product-img-wrap">
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/626629-default_md/magnetinis-antgaliu-laikiklis-1-4-120mm.jpg" alt="Magnetinis antgalių laikiklis" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">Magnetinis antgalių laikiklis 1/4' 120mm</p>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Pristatymas 1-2 d.d.</div>
+        <p class="product-price">2,57 €</p>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+    <a href="https://mankius.lt/1450-irankiai" class="product-card">
+      <div class="product-img-wrap">
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/626623-default_md/adapteris-sarnyrinis-su-magnetu-1-4-100mm.jpg" alt="Adapteris šarnyrinis su magnetu" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">Adapteris šarnyrinis su magnetu 1/4" 100mm</p>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Pristatymas 1-2 d.d.</div>
+        <p class="product-price">4,83 €</p>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+    <a href="https://mankius.lt/1450-irankiai" class="product-card">
+      <div class="product-img-wrap">
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/626619-default_md/lambda-zondo-sriegiu-remonto-rinkinys-12vnt-m18x15.jpg" alt="Lambda zondo sriegių remonto rinkinys" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">Lambda zondo sriegių remonto rinkinys 12vnt. M18x1.5</p>
+        <div class="stars">★★★★★ <span style="color:#666;font-size:11px">5.0 (1)</span></div>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>1-2 d.d.</div>
+        <p class="product-price">32,17 €</p>
+        <div class="artea-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/artea.png" alt="Artea" />10,72 €/mėn. be pabrangimo<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+    <a href="https://mankius.lt/1450-irankiai" class="product-card">
+      <div class="product-img-wrap">
+        <button class="wishlist-btn" onclick="event.preventDefault()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="https://mankius.lt/626616-default_md/rato-varzto-sriegio-remonto-rinkinys-8vnt-m12-m14.jpg" alt="Rato varžto sriegio remonto rinkinys" />
+      </div>
+      <div class="product-body">
+        <p class="product-name">Rato varžto sriegio remonto rinkinys 8vnt. M12-M14</p>
+        <div class="product-delivery"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Pristatymas 1-2 d.d.</div>
+        <p class="product-price">25,23 €</p>
+        <div class="in-stock">Turime sandėlyje</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- VIDEO SECTION -->
+<section class="video-section">
+  <div class="section-header">
+    <h2 class="section-title">Mankius video</h2>
+    <a href="https://www.youtube.com/@mankius" class="see-all" target="_blank" rel="noopener">Žiūrėti viską</a>
+  </div>
+  <div class="video-grid">
+
+    <a href="https://www.youtube.com/watch?v=2os8S_ar6xs" class="video-card" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/2os8S_ar6xs/hqdefault.jpg" alt="Benzininis keturratis KAYO AU125cc EFI" />
+        <div class="play-btn"><div class="play-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+      </div>
+      <p class="video-title">Benzininis keturratis KAYO AU125cc EFI</p>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=flhRQqEbWmQ" class="video-card" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/flhRQqEbWmQ/hqdefault.jpg" alt="Elektrinis Triratis x3 su stogu" />
+        <div class="play-btn"><div class="play-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+        <div class="video-duration"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>12:42</div>
+      </div>
+      <p class="video-title">Elektrinis Triratis x3 su stogu</p>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=hLBCDyhQz8U" class="video-card" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/hLBCDyhQz8U/hqdefault.jpg" alt="Elektrinis triratis Citycoco EB-05" />
+        <div class="play-btn"><div class="play-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+        <div class="video-duration"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>7:09</div>
+      </div>
+      <p class="video-title">Elektrinis triratis Citycoco EB-05 😎</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- STORES SECTION -->
+<section class="stores-section">
+  <div class="stores-inner">
+    <div>
+      <h2 class="stores-title">Aplankykite mūsų<br>fizines parduotuves</h2>
+      <p class="stores-desc">Suprantame, kaip svarbu ne tik peržiūrėti prekes internetu, bet ir jas gyvai apžiūrėti, įvertinti ar pasikonsultuoti. Todėl mūsų trys fizinės Mankius parduotuvės visada jūsų laukia:</p>
+      <div class="stores-features">
+        <div class="store-feature"><span class="feat-icon">👥</span><span>Šiltas priėmimas ir konsultacijos gyvai</span></div>
+        <div class="store-feature"><span class="feat-icon">🚲</span><span>Platus prekių pasirinkimas vienoje vietoje</span></div>
+        <div class="store-feature"><span class="feat-icon">🛡️</span><span>Patikimos garantijos ir aptarnavimas</span></div>
+      </div>
+      <div class="store-cards">
+        <div class="store-card">
+          <div class="store-card-info"><strong>Mankius Kaunas</strong><span>Perspektyvos g. 22</span></div>
+          <a href="https://www.google.com/maps/search/Perspektyvos+g.+22+Kaunas" target="_blank" rel="noopener" class="store-map-link">Rodyti maršrutą <img src="https://mankius.lt/themes/mankius/assets/img//icons/icon-google-map.svg" width="16" height="16" alt="" style="display:inline" /></a>
+        </div>
+        <div class="store-card">
+          <div class="store-card-info"><strong>Mankius Klaipėda</strong><span>Mainų g. 5</span></div>
+          <a href="https://www.google.com/maps/search/Mainu+g.+5+Klaipeda" target="_blank" rel="noopener" class="store-map-link">Rodyti maršrutą <img src="https://mankius.lt/themes/mankius/assets/img//icons/icon-google-map.svg" width="16" height="16" alt="" style="display:inline" /></a>
+        </div>
+        <div class="store-card">
+          <div class="store-card-info"><strong>Mankius Vilnius</strong><span>Savanorių pr. 187</span></div>
+          <a href="https://www.google.com/maps/search/Savanoriu+pr.+187+Vilnius" target="_blank" rel="noopener" class="store-map-link">Rodyti maršrutą <img src="https://mankius.lt/themes/mankius/assets/img//icons/icon-google-map.svg" width="16" height="16" alt="" style="display:inline" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="stores-photo">
+      <img src="https://mankius.lt/themes/mankius/assets/img//mankius-parduotuves.jpg" alt="Mankius parduotuvės vidus" />
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY SECTION -->
+<section class="community-section">
+  <div class="community-header">
+    <h2>Prisijunkite prie mūsų bendruomenės</h2>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/mankius.lt" target="_blank" rel="noopener" class="social-icon-btn" title="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/mankius.lt" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://www.tiktok.com/@mankius.lt" target="_blank" rel="noopener" class="social-icon-btn" title="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.26 8.26 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/></svg></a>
+      <a href="https://www.youtube.com/@mankius" target="_blank" rel="noopener" class="social-icon-btn" title="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg></a>
+    </div>
+  </div>
+  <div class="social-grid">
+    <div class="social-post"><a href="https://www.instagram.com/mankius.lt" target="_blank" rel="noopener"><img src="https://mankius.lt/modules/mocinstagram/views/media/thumb_5faf1228025e3d983a7e1e427bb73ea7.jpg" alt="Mankius bendruomenė" /></a></div>
+    <div class="social-post"><a href="https://www.instagram.com/mankius.lt" target="_blank" rel="noopener"><img src="https://mankius.lt/modules/mocinstagram/views/media/thumb_617c7218100f299a2726dde423baa174.jpg" alt="Mankius bendruomenė" /></a></div>
+    <div class="social-post"><a href="https://www.instagram.com/mankius.lt" target="_blank" rel="noopener"><img src="https://mankius.lt/modules/mocinstagram/views/media/media_6b7ffbb7610cf6b488bff961f8bda7e5.jpg" alt="Mankius bendruomenė" /></a></div>
+    <div class="social-post"><a href="https://www.instagram.com/mankius.lt" target="_blank" rel="noopener"><img src="https://mankius.lt/modules/mocinstagram/views/media/thumb_7f0c2de061f5a8864128b6607cd530b8.jpg" alt="Mankius bendruomenė" /></a></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="newsletter-card">
+    <h2>Prenumeruokite mūsų naujienlaiškį ir nerpaleiskite geriausių pasiūlymų!</h2>
+    <div class="newsletter-form">
+      <div class="newsletter-input-wrap">
+        <img src="https://mankius.lt/themes/mankius/assets/img/bananas.png" class="nl-icon" alt="" />
+        <input type="email" placeholder="El. pašto adresas" />
+      </div>
+      <button class="btn-primary" style="padding:12px 28px;font-size:15px">Prenumeruoti</button>
+    </div>
+    <img src="https://mankius.lt/themes/mankius/assets/img//mankius-ant-virves-2x.png" class="newsletter-mascot" alt="Mankius" />
+  </div>
+</section>
+
+<!-- EMBED: GOOGLE SHEET 1 -->
+<section class="embed-section">
+  <div class="embed-section-inner">
+    <div class="embed-header">
+    </div>
+    <div class="embed-frame-wrap">
+      <!-- Replace the src below with your published Google Sheets embed URL:
+           File → Share → Publish to web → Embed → Copy the iframe src -->
+      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR6GM_ovLRqaaS9nrSAKMi6xpSr_VvNvMK-6Uz0pM9fTRuqk7Osv92oBgBlLVVqkxcQVGQL23nOjoyi/pubhtml?widget=true&amp;headers=false" height="520" loading="lazy" title="sulankstomi elektriniai dviraciai"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- EMBED: GOOGLE SHEET 2 -->
+<section class="embed-section alt-bg">
+  <div class="embed-section-inner">
+    <div class="embed-header">
+    </div>
+    <div class="embed-frame-wrap">
+      <!-- Replace the src below with your published Google Sheets embed URL -->
+      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS__NzEYNEREkTsPc1KIg4Ow6C7aagPCHt-wbMbhmkKzK8-oZwaSoFZrTriG7Xs2pQu4DPRRmBQ0pua/pubhtml?widget=true&amp;headers=false" height="520" loading="lazy" title="elektrinis krosinis motociklas"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- EMBED: GOOGLE PRESENTATION -->
+<section class="embed-section">
+  <div class="embed-section-inner">
+    <div class="embed-header">
+    </div>
+    <!-- aspect-16-9 makes the iframe auto-resize to 16:9 at any width -->
+    <div class="embed-frame-wrap aspect-16-9">
+      <!-- Replace the src below with your Google Slides embed URL:
+           File → Share → Publish to web → Embed → Copy the iframe src -->
+      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTYTTADeoPRIXV9uu6kKG-2JGUwzG-K19DQS_OEjqumfz1cwlL3Jgvxq666Ync2g6cVGVmi5-tGekHX/embed?start=false&loop=false&delayms=3000" loading="lazy" allowfullscreen title="vokiski elektriniai dviraciai"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- EMBED: GOOGLE DRAWING -->
+<section class="embed-section alt-bg">
+  <div class="embed-section-inner">
+    <div class="embed-header">
+    </div>
+    <div class="embed-frame-wrap">
+      <!-- Replace the src below with your Google Drawing embed URL:
+           File → Publish to web → Copy the embed src -->
+      <iframe src="https://docs.google.com/drawings/d/e/2PACX-1vSFVvBGr812NXBNmwEwY_BtgDFtdGU6edWFY6Y1O-S39_SiwNkOO-VABfrLVc32IP65NNTDej0bEsTB/pub?w=1320&amp;h=600" height="600" loading="lazy" title="geriausi dviraciai paaugliams"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Prekės</h4>
+      <ul>
+        <li><a href="https://mankius.lt/265-elektrine-technika">Elektrinis mobilumas</a></li>
+        <li><a href="https://mankius.lt/3660-elektriniai-dviraciai">Dviračiai</a></li>
+        <li><a href="https://mankius.lt/3869-mototechnika">Keturračiai (ATV, UTV)</a></li>
+        <li><a href="https://mankius.lt/305-elektriniai-krosiniai-motociklai">Krosiniai motociklai</a></li>
+        <li><a href="https://mankius.lt/2751-elektromobiliai-vaikams-zaislai">Prekės vaikams</a></li>
+        <li><a href="https://mankius.lt/2781-sodo-zaidimu-iranga">Sodo, kiemo, turizmo įranga</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informacija</h4>
+      <ul>
+        <li><a href="https://mankius.lt/info/1-pristatymas">Pristatymo sąlygos</a></li>
+        <li><a href="https://mankius.lt/kontaktai">Kontaktai</a></li>
+        <li><a href="https://mankius.lt/info/3-pirkimo-pardavimo-taisykles">Prekių pirkimo taisyklės</a></li>
+        <li><a href="https://mankius.lt/info/4-apie-mus">Apie mus</a></li>
+        <li><a href="https://mankius.lt/info/5-saugus-atsiskaitymas">Atsiskaitymas</a></li>
+        <li><a href="https://mankius.lt/info/6-privatumo-politika">Privatumo politika</a></li>
+        <li><a href="https://mankius.lt/karjera">Karjera</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Mūsų parduotuvės</h4>
+      <div class="footer-store-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8611a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <a href="https://www.google.com/maps/search/Mainu+g.+5+Klaipeda" target="_blank" rel="noopener">Mankius Klaipėda Mainų g. 5</a>
+      </div>
+      <div class="footer-store-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8611a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <a href="https://www.google.com/maps/search/Perspektyvos+g.+22+Kaunas" target="_blank" rel="noopener">Mankius Kaunas Perspektyvos g. 22</a>
+      </div>
+      <div class="footer-store-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8611a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <a href="https://www.google.com/maps/search/Savanoriu+pr.+187+Vilnius" target="_blank" rel="noopener">Mankius Vilnius Savanorių prospektas 187</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Kontaktai</h4>
+      <div class="footer-contact-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 17z"/></svg>
+        <a href="tel:+37067747967">+37067747967</a> (informacija)
+      </div>
+      <div class="footer-contact-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 17z"/></svg>
+        <a href="tel:+37067703438">+37067703438</a> (dalys)
+      </div>
+      <div class="footer-contact-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:info@mankius.lt">info@mankius.lt</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/mankius.lt" target="_blank" rel="noopener" class="social-icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/mankius.lt" target="_blank" rel="noopener" class="social-icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.tiktok.com/@mankius.lt" target="_blank" rel="noopener" class="social-icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.26 8.26 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/></svg></a>
+        <a href="https://www.youtube.com/@mankius" target="_blank" rel="noopener" class="social-icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1320px;margin:0 auto;padding:0 20px">
+    <div class="footer-bottom">
+      <span class="footer-copyright">Mankius © 2026 Visos teisės saugomos.</span>
+      <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        | į viršų
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div style="max-width:1320px;margin:0 auto;padding:0 20px">
+    <div class="payment-row">
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/swedbank.png" alt="Swedbank" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/luminor.png" alt="Luminor" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/sb.png" alt="Šiaulių bankas" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/seb.png" alt="SEB" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/paysera.png" alt="PaySera" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/visa.png" alt="Visa / Mastercard" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/citadele.png" alt="Citadele" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/narvesen.png" alt="Narvesen" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/paypost.png" alt="PayPost" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/perlas.png" alt="Perlo paslaugos" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/maxima.png" alt="Maxima" /></div>
+      <div class="payment-badge"><img src="https://mankius.lt/themes/mankius/assets/img//logos/mb.png" alt="Medicinos bankas" /></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleBtn(btn) {
+    const group = btn.closest('.toggle-group');
+    group.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const header = document.querySelector('.header');
+  window.addEventListener('scroll', () => {
+    header.style.boxShadow = window.scrollY > 10 ? '0 2px 16px rgba(0,0,0,.08)' : '';
+  });
+</script>
+
+</body>
+</html>
