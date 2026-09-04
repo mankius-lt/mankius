@@ -40,7 +40,7 @@
 
     /* ── NAV BAR ─────────────────────────────────────────────── */
     .nav-bar { background: #fff; border-bottom: 1px solid #eee; }
-    .nav-inner { max-width: 1320px; margin: 0 auto; padding: 0 20px; display: flex; align-items: stretch; }
+    .nav-inner { max-width: 1320px; margin: 0 auto; padding: 0 20px; display: flex; align-items: stretch; position: relative; }
     .nav-item { position: relative; display: flex; align-items: center; gap: 8px; padding: 8px 14px; font-size: 13px; font-weight: 500; color: #222; white-space: nowrap; cursor: pointer; transition: background .15s; border-bottom: 2px solid transparent; }
     .nav-item:hover { color: #e8611a; border-bottom-color: #e8611a; }
     .nav-item img { width: 32px; height: 32px; object-fit: contain; }
@@ -193,6 +193,18 @@
     .embed-frame-wrap iframe { width: 100%; border: none; display: block; }
     .embed-frame-wrap.aspect-16-9 { position: relative; padding-bottom: 56.25%; height: 0; }
     .embed-frame-wrap.aspect-16-9 iframe { position: absolute; inset: 0; height: 100%; }
+
+    /* ── CATALOG MEGA MENU ───────────────────────────────────── */
+    .nav-item.mega-item { position: static; }
+    .nav-item.mega-item .dropdown.mega { left: 0; right: 0; width: auto; min-width: 0; padding: 22px 26px; max-height: 78vh; overflow-y: auto; }
+    .linkdir-grid { columns: 5 190px; column-gap: 26px; }
+    .linkdir-group { break-inside: avoid; -webkit-column-break-inside: avoid; page-break-inside: avoid; display: inline-block; width: 100%; margin-bottom: 18px; vertical-align: top; }
+    .linkdir-group h3 { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid #eee; }
+    .linkdir-group ul { list-style: none; }
+    .linkdir-group li { margin-bottom: 2px; line-height: 1.3; }
+    .linkdir-group li a { display: block; padding: 3px 0; font-size: 12.5px; color: #555; transition: color .2s; }
+    .linkdir-group li a:hover { color: #e8611a; background: none; }
+    @media (max-width: 640px) { .nav-item.mega-item .dropdown.mega { position: fixed; left: 8px; right: 8px; } .linkdir-grid { columns: 1; } }
 
     /* ── FOOTER ──────────────────────────────────────────────── */
     footer { background: #f5f5f5; padding: 48px 20px 0; margin-top: 40px; }
@@ -379,6 +391,287 @@
       </div>
     </div>
 
+    <div class="nav-item mega-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Katalogas</span>
+      <div class="dropdown mega">
+  <div class="linkdir-grid">
+
+    <div class="linkdir-group">
+      <h3>Dviračiai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/3660-elektriniai-dviraciai">Elektriniai dviračiai</a></li>
+        <li><a href="https://mankius.lt/250-dviraciai-vaikams">Dviračiai vaikams</a></li>
+        <li><a href="https://mankius.lt/311-dviraciai-paaugliams">Dviračiai paaugliams</a></li>
+        <li><a href="https://mankius.lt/245-kalnu-dviraciai-mtb">Kalnų dviračiai (MTB)</a></li>
+        <li><a href="https://mankius.lt/246-miesto-dviraciai">Miesto dviračiai</a></li>
+        <li><a href="https://mankius.lt/308-hibridiniai-dviraciai">Hibridiniai dviračiai</a></li>
+        <li><a href="https://mankius.lt/1229-turistiniai-dviraciai">Turistiniai dviračiai</a></li>
+        <li><a href="https://mankius.lt/1233-sulankstomi-dviraciai">Sulankstomi dviračiai</a></li>
+        <li><a href="https://mankius.lt/247-dviraciai-bmx">BMX dviračiai</a></li>
+        <li><a href="https://mankius.lt/1261-plento-dviraciai">Plento dviračiai</a></li>
+        <li><a href="https://mankius.lt/1321-gravel-dviraciai">Gravel dviračiai</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Elektrinis mobilumas</h3>
+      <ul>
+        <li><a href="https://mankius.lt/305-elektriniai-krosiniai-motociklai">Elektriniai motociklai</a></li>
+        <li><a href="https://mankius.lt/4229-mopedai-ir-motoroleriai">Elektriniai motoroleriai</a></li>
+        <li><a href="https://mankius.lt/4475-elektriniai-triraciai">Elektriniai triračiai</a></li>
+        <li><a href="https://mankius.lt/6725-mini-motociklai">Mini motociklai</a></li>
+        <li><a href="https://mankius.lt/6728-skuteriai">Skuteriai</a></li>
+        <li><a href="https://mankius.lt/6657-neigaliuju-vezimeliai">Neįgaliųjų vežimėliai</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Prekės vaikams</h3>
+      <ul>
+        <li><a href="https://mankius.lt/2751-elektromobiliai-vaikams-zaislai">Elektromobiliai vaikams</a></li>
+        <li><a href="https://mankius.lt/2833-automobiliai">Automobiliai</a></li>
+        <li><a href="https://mankius.lt/2820-motociklai">Motociklai</a></li>
+        <li><a href="https://mankius.lt/2834-kartingai">Kartingai</a></li>
+        <li><a href="https://mankius.lt/2832-keturraciai-ir-bagiai">Keturračiai ir bagiai</a></li>
+        <li><a href="https://mankius.lt/2796-ekskavatoriai-ir-traktoriai">Ekskavatoriai ir traktoriai</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Dalys ir apsaugos</h3>
+      <ul>
+        <li><a href="https://mankius.lt/80-dviraciu-dalys">Dviračių dalys</a></li>
+        <li><a href="https://mankius.lt/3882-motociklu-dalys">Motociklų dalys</a></li>
+        <li><a href="https://mankius.lt/2037-kartingu-dalys">Kartingų dalys</a></li>
+        <li><a href="https://mankius.lt/6048-moto-apsaugos">Moto apsaugos</a></li>
+        <li><a href="https://mankius.lt/6045-salmai">Šalmai</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Dviračių prekės ženklai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/4523-engwe-dviraciai">Engwe dviračiai</a></li>
+        <li><a href="https://mankius.lt/4524-ado-dviraciai">Ado dviračiai</a></li>
+        <li><a href="https://mankius.lt/6606-duotts-dviraciai">Duotts dviračiai</a></li>
+        <li><a href="https://mankius.lt/6664-foride-dviraciai">Foride dviračiai</a></li>
+        <li><a href="https://mankius.lt/4552-eleglide-dviraciai">Eleglide dviračiai</a></li>
+        <li><a href="https://mankius.lt/4567-romet-elektriniai-dviraciai">Romet dviračiai</a></li>
+        <li><a href="https://mankius.lt/4568-geobike-elektriniai-dviraciai">Geobike dviračiai</a></li>
+        <li><a href="https://mankius.lt/6605-touroll-dviraciai">Touroll dviračiai</a></li>
+        <li><a href="https://mankius.lt/6674-one-sport-elektriniai-dviraciai">One Sport dviračiai</a></li>
+        <li><a href="https://mankius.lt/6675-ovivo-elektriniai-dviraciai">Ovivo dviračiai</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Moto prekės ženklai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/6736-surron-motociklai">Surron motociklai</a></li>
+        <li><a href="https://mankius.lt/6735-talaria-motociklai">Talaria motociklai</a></li>
+        <li><a href="https://mankius.lt/6737-riding-times-motociklai">Riding Times motociklai</a></li>
+        <li><a href="https://mankius.lt/6738-kayo-motociklai">Kayo motociklai</a></li>
+        <li><a href="https://mankius.lt/6739-kayo-keturraciai">Kayo keturračiai</a></li>
+        <li><a href="https://mankius.lt/6734-goes-keturraciai">Goes keturračiai</a></li>
+        <li><a href="https://mankius.lt/6744-qjmotor-keturraciai">QJMotor keturračiai</a></li>
+        <li><a href="https://mankius.lt/6745-linhai-keturraciai">Linhai keturračiai</a></li>
+        <li><a href="https://mankius.lt/6747-upmoto-keturraciai">Upmoto keturračiai</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Engwe dviračiai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/engwe-dviraciai/608237-dviratis-26-elektrinis-engwe-e26-st-moteriskas-juodas.html">Engwe E26 ST juodas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/611847-dviratis-26-elektrinis-engwe-e26-st-moteriskas-zalias.html">Engwe E26 ST žalias</a></li>
+        <li><a href="https://mankius.lt/elektriniai-dviraciai/514666-9043-engwe-engine-pro-20-elektrinis-dviratis.html">Engwe Engine Pro</a></li>
+        <li><a href="https://mankius.lt/elektriniai-dviraciai/514650-9031-engwe-ep-2-pro-750w-elektrinis-dviratis-fat-bike.html">Engwe EP-2 Pro 750W</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546818-dviratis-20-elektrinis-engwe-ep-2-pro-juodas.html">Engwe EP-2 Pro juodas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546840-dviratis-20-elektrinis-engwe-ep-2-pro-pilkas.html">Engwe EP-2 Pro pilkas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/610954-engwe-ep-2-pro-elektrinis-dviratis-20-spalva-ruda.html">Engwe EP-2 Pro rudas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/549053-17889-engwe-ep-2-pro-boost-elektrinis-dviratis-fat-bike.html">Engwe EP-2 Pro Boost</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/549052-17888-engwe-ep-2-pro-750w-elektriniai-dviraciai-2-vienetai-pigiau.html">Engwe EP-2 Pro komplektas</a></li>
+        <li><a href="https://mankius.lt/miesto-turistiniai-elektriniai-dviraciai/546404-dviratis-20-elektrinis-engwe-l20-boost-zalias.html">Engwe L20 Boost žalias</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/543006-26788-engwe-l20-30-boost-elektrinis-dviratis.html">Engwe L20 3.0 Boost</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/543929-11294-engwe-m1-elektrinis-dviratis.html">Engwe M1</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546413-dviratis-20-elektrinis-engwe-m1-viena-baterija-juodas.html">Engwe M1 juodas</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/543008-11196-engwe-m1-elektrinis-dviratis-2-baterijos.html">Engwe M1 2 baterijos</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546414-dviratis-20-elektrinis-engwe-m1-dviguba-baterija-geltonas.html">Engwe M1 geltonas</a></li>
+        <li><a href="https://mankius.lt/miesto-turistiniai-elektriniai-dviraciai/546393-dviratis-20-elektrinis-engwe-m20-viena-baterija-baltas.html">Engwe M20 baltas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/607403-dviratis-20-elektrinis-engwe-m20-viena-baterija-zalias.html">Engwe M20 žalias</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/549083-27971-engwe-m20-elektrinis-dviratis-2-baterijos.html">Engwe M20 2 baterijos</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/611909-dviratis-20-elektrinis-engwe-m20-dviguba-baterija-juodas.html">Engwe M20 juodas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/555986-dviratis-20-elektrinis-engwe-m20-dviguba-baterija-zalias.html">Engwe M20 dviguba žalias</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546420-dviratis-28-elektrinis-engwe-n1-air-vyr-karboninis-juodas.html">Engwe N1 Air vyriškas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546421-dviratis-28-elektrinis-engwe-n1-air-st-mot-karboninis-juodas.html">Engwe N1 Air ST</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546423-dviratis-28-elektrinis-engwe-n1-pro-vyr-karboninis-juodas.html">Engwe N1 Pro juodas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546424-dviratis-28-elektrinis-engwe-n1-pro-vyr-karboninis-zalias.html">Engwe N1 Pro žalias</a></li>
+        <li><a href="https://mankius.lt/miesto-turistiniai-elektriniai-dviraciai/546399-dviratis-275-elektrinis-engwe-p275-st-balta-oranzine.html">Engwe P275 ST</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/611242-dviratis-14-elektrinis-engwe-t14-oranzinis.html">Engwe T14 oranžinis</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/610953-engwe-x26-elektrinis-dviratis-26-spalva-juoda.html">Engwe X26 juodas</a></li>
+        <li><a href="https://mankius.lt/engwe-dviraciai/546815-dviratis-26-elektrinis-engwe-x26-dviguba-baterija-pilkas.html">Engwe X26 pilkas</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Kayo motociklai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/elektriniai-krosiniai-motociklai/555609-vaikiskas-krosinis-motociklas-kayo-ekmb.html">Kayo EKMB</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550868-vaikiskas-krosinis-motociklas-kayo-ts70.html">Kayo TS70</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550870-vaikiskas-krosinis-motociklas-kayo-ts90.html">Kayo TS90</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550866-vaikiskas-krosinis-motociklas-kayo-tsd110.html">Kayo TSD110</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550872-vaikiskas-krosinis-motociklas-kayo-td110efi.html">Kayo TD110 EFI</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550871-vaikiskas-krosinis-motociklas-kayo-td125.html">Kayo TD125</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550880-krosinis-motociklas-kayo-tt125.html">Kayo TT125</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550873-krosinis-motociklas-kayo-tt125-efi.html">Kayo TT125 EFI</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550881-motociklas-kayo-tt140.html">Kayo TT140</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550882-krosinis-motociklas-kayo-tt160.html">Kayo TT160</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550877-krosinis-motociklas-kayo-tt190r.html">Kayo TT190R</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550875-motociklas-kayo-k2-enduro.html">Kayo K2 Enduro</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550874-krosinis-motociklas-kayo-k2-pro.html">Kayo K2 Pro</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550876-motociklas-kayo-t2-enduro.html">Kayo T2 Enduro</a></li>
+        <li><a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550879-motociklas-kayo-250-efi.html">Kayo 250 EFI</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Kayo keturračiai ir bagiai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/kayo-keturraciai/612551-benzininis-keturratis-kayo-a50.html">Kayo A50</a></li>
+        <li><a href="https://mankius.lt/elektriniai-bagiai/555612-vaikiskas-akumuliatorinis-bagis-kayo-es70.html">Kayo eS70</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai/550178-vaikiskas-keturratis-kayo-ay70.html">Kayo A70</a></li>
+        <li><a href="https://mankius.lt/elektriniai-keturraciai/555620-vaikiskas-akumuliatorinis-keturratis-kayo-ea110.html">Kayo eA70</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai/550330-vaikiskas-keturratis-kayo-at125.html">Kayo AT125</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai/550335-vaikiskas-keturratis-kayo-au110.html">Kayo AU110</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai/550331-vaikiskas-keturratis-su-ipurskimu-kayo-at125-efi.html">Kayo AT125 EFI</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550339-vaikiskas-keturratis-kayo-au150cvt.html">Kayo AU150 CVT</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai/550338-vaikiskas-keturratis-kayo-au150-efi.html">Kayo AU150 EFI</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai/550332-benzininis-keturratis-kayo-a200.html">Kayo A200</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550341-vaikiskas-keturratis-kayo-au180.html">Kayo AU180</a></li>
+        <li><a href="https://mankius.lt/elektriniai-bagiai/555616-benzininis-bagis-kayo-s150.html">Kayo S150</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550342-keturratis-kayo-au200-t3b-registruojamas.html">Kayo AU200 T3B</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550333-keturratis-kayo-a300.html">Kayo A300</a></li>
+        <li><a href="https://mankius.lt/elektriniai-bagiai/555613-vaikiskas-bagis-kayo-s70.html">Kayo S70 bagis</a></li>
+        <li><a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550343-keturratis-kayo-au300-efi-t3b.html">Kayo AU300 EFI T3B</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Surron ir Talaria</h3>
+      <ul>
+        <li><a href="https://mankius.lt/motociklai/611460-elektrinis-motociklas-surron-light-bee-l1e.html">Surron Light Bee L1E</a></li>
+        <li><a href="https://mankius.lt/motociklai/608951-elektrinis-motociklas-talaria-sting-pro-mx5-l1e-registruojamas.html">Talaria Sting Pro MX5</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/612553-elektrinis-motociklas-talaria-x3-pro.html">Talaria X3 Pro</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/612540-elektrinis-motociklas-talaria-komodo.html">Talaria Komodo</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>GOES keturračiai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/mototechnika/611454-goes-terrox-400l-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 400L</a></li>
+        <li><a href="https://mankius.lt/mototechnika/611455-goes-terrox-550l-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 550L</a></li>
+        <li><a href="https://mankius.lt/mototechnika/611456-goes-terrox-1000-standard-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 1000 Standard</a></li>
+        <li><a href="https://mankius.lt/mototechnika/611457-goes-terrox-1000-premium-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 1000 Premium</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>QJMotor keturračiai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/pagrindinis/613458-qjmotor-sfa300-t3b-keturratis.html">QJMotor SFA300</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613485-qjmotor-sfa300-t3b-keturratis.html">QJMotor SFA300 keturratis</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613506-qjmotor-sfa300-t3b-keturratis.html">QJMotor SFA300 ATV</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613508-qjmotor-sfa600-eps-t3b-keturratis.html">QJMotor SFA600</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/612771-qjmotor-sfa600-pro-eps-t3b-keturratis.html">QJMotor SFA600 Pro</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613510-qjmotor-sfa600-pro-eps-t3b-keturratis.html">QJMotor SFA600 Pro EPS</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613514-qjmotor-sfa600-pro-eps-t3b-keturratis.html">QJMotor SFA600 Pro ATV</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613515-qjmotor-sfa600-pro-eps-t3b-keturratis.html">QJMotor SFA600 Pro 4x4</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613516-qjmotor-sfa600-pro-eps-t3b-keturratis.html">QJMotor SFA600 Pro registruojamas</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613377-qjmotor-sfa1000-eps-t3b-keturratis.html">QJMotor SFA1000</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613378-qjmotor-sfa1000-eps-t3b-keturratis.html">QJMotor SFA1000 keturratis</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613379-qjmotor-sfa1000-eps-t3b-keturratis.html">QJMotor SFA1000 ATV</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/612772-benzininis-keturratis-qjmotor-sfa1000-pro-eps-t3b.html">QJMotor SFA1000 Pro</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613380-qjmotor-sfa1000-pro-eps-t3b-keturratis.html">QJMotor SFA1000 Pro keturratis</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613382-qjmotor-sfa1000-pro-eps-t3b-keturratis.html">QJMotor SFA1000 Pro ATV</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613384-qjmotor-sfa1000-pro-eps-t3b-keturratis.html">QJMotor SFA1000 Pro 4x4</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613456-qjmotor-sfa1000-pro-eps-t3b-keturratis.html">QJMotor SFA1000 Pro registruojamas</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613457-qjmotor-sfa1000-pro-eps-t3b-keturratis.html">QJMotor SFA1000 Pro benzininis</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613375-qjmotor-sfa1000-e-mud-t3b-keturratis.html">QJMotor SFA1000 E-Mud</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613376-qjmotor-sfa1000-e-mud-t3b-keturratis.html">QJMotor SFA1000 E-Mud kaina</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Linhai keturračiai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/mototechnika/612774-linhai-atv-110-vaikiskas-keturratis.html">Linhai ATV 110</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/612828-linhai-atv-110-vaikiskas-keturratis.html">Linhai 110cc keturratis</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/612830-linhai-atv-110-vaikiskas-keturratis.html">Linhai ATV 110 pirkti</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/612995-linhai-atv-110-vaikiskas-keturratis.html">Linhai ATV 110 Lietuva</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613368-linhai-m210-2x4-efi-t3b-black-keturratis.html">Linhai M210</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613369-linhai-m210-2x4-efi-t3b-keturratis.html">Linhai M210 T3B</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613362-linhai-landforce-550l-keturratis.html">Linhai Landforce 550L</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613363-linhai-landforce-550l-keturratis.html">Linhai Landforce 550L kaina</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613364-linhai-landforce-550l-keturratis.html">Linhai Landforce 550L Lietuva</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613365-linhai-landforce-550l-eps.html">Linhai Landforce 550L EPS</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613366-linhai-landforce-550l-eps-keturratis.html">Linhai Landforce 550L EPS kaina</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613367-linhai-landforce-550l-eps.html">Linhai Landforce 550L EPS Lietuva</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613262-linhai-atv-650l-landforce-eps-efi-t3b-gray-black.html">Linhai Landforce 650L</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613358-linhai-atv-650l-landforce-pro-eps-efi-t3b.html">Linhai Landforce 650L Pro</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613359-linhai-atv-650l-landforce-pro-eps-efi-t3b.html">Linhai Landforce 650L Pro kaina</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613360-linhai-atv-650l-landforce-pro-eps-efi-t3b.html">Linhai Landforce 650L Pro pirkti</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613361-linhai-atv-650l-landforce-pro-eps-efi-t3b.html">Linhai 650L Landforce Pro</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613253-linhai-atv-1000l-landforce-eps-t3b-keturratis.html">Linhai Landforce 1000L</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613254-linhai-atv-1000l-landforce-eps-t3b-keturratis.html">Linhai Landforce 1000L kaina</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613255-linhai-atv-1000l-landforce-eps-t3b-keturratis.html">Linhai Landforce 1000L pirkti</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613259-linhai-atv-420-promax-efit3b-keturratis.html">Linhai 420 Promax</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613260-linhai-atv-420-promax-efit3b-keturratis.html">Linhai 420 Promax keturratis</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613261-linhai-atv-420-promax-efit3b-keturratis.html">Linhai 420 Promax pirkti</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Upmoto keturračiai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/pagrindinis/613477-upmoto-tcrosser-525l-se-t3b-dark-green-keturratis.html">Upmoto Tcrosser 525L SE</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613478-upmoto-tcrosser-525l-se-eps-t3b-grey-keturratis.html">Upmoto Tcrosser 525L SE EPS</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613479-upmoto-tcrosser-525s-se-eps-t3b-grey-keturratis.html">Upmoto Tcrosser 525S SE</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613483-upmoto-tcrosser-525l-eps-t3b-grey-keturratis.html">Upmoto Tcrosser 525L EPS</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613481-upmoto-tcrosser-525l-eps-t3b-camo-keturratis.html">Upmoto 525L EPS Camo</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613480-upmoto-tcrosser-525l-eps-orange-keturratis.html">Upmoto 525L EPS Orange</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613482-upmoto-tcrosser-525l-eps-t3b-green-keturratis.html">Upmoto 525L EPS Green</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613520-upmoto-tcrosser-650s-eps-t3b-titan-grey-keturratis.html">Upmoto Tcrosser 650S</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613521-upmoto-tcrosser-650l-eps-t3b-dark-green-keturratis.html">Upmoto Tcrosser 650L</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613522-upmoto-tcrosser-650l-eps-t3b-grey-keturratis.html">Upmoto Tcrosser 650L grey</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613523-upmoto-odes-650l-tcrosser-x-eps-v-twin-t3b-keturratis.html">Upmoto Tcrosser X 650L</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613507-upmoto-tcrosser-850l-eps-t3b-dark-green-keturratis.html">Upmoto Tcrosser 850L</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613519-upmoto-tcrosser-x-300-2wd-t3b-orange-keturratis.html">Upmoto Tcrosser X 300</a></li>
+        <li><a href="https://mankius.lt/pagrindinis/613518-upmoto-tcrosser-x-300-2wd-t3b-grey-keturratis.html">Upmoto Tcrosser X 300 grey</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Paspirtukai</h3>
+      <ul>
+        <li><a href="https://mankius.lt/dviraciai-paspirtukai-dalys/609779-elektrinis-paspirtukas-inokim-oxo-10-atnaujintas.html">Inokim OXO 10</a></li>
+      </ul>
+    </div>
+
+    <div class="linkdir-group">
+      <h3>Mūsų parduotuvės</h3>
+      <ul>
+        <li><a href="https://www.google.com/search?q=Mankius+Kaunas&stick=H4sIAAAAAAAA_-NgU1I1qDAxSzU3tDRLSTJMSjOzTDK1MqhIM0w1s7A0NjRKTDROTko2WsTK55uYl51ZWqzgnVial1gMAFbDjnA6AAAA&hl=en&mat=Car-bDHK52adElYBa0lj_9WG2ct68pdogYqiTIXrLZcgBzg64lft4y7ipEO1SOniIRou1tq1OD1A0vlG2N6hImJqOfxHtWuS2HEMjqSc1KuuULs4fg3BME3RxHrSqN2-UA&authuser=0" target="_blank" rel="noopener">Mankius Kaunas</a></li>
+        <li><a href="https://www.google.com/search?q=Mankius+Klaip%C4%97da&stick=H4sIAAAAAAAA_-NgU1I1qDAxSzVJSUlLTrYwMLVMMja0MqhISrRIMzUzTDWwsEhJtUg1W8Qq6JuYl51ZWqzgnZOYWXBkekoiABSQ8mk9AAAA&hl=en&mat=CY03IUpSGlbaElYBa0lj_0IGVn8o1XxwZurVBVawD3_z4Kjmrq5JMYX7-dcO37vPDkXj6xhPYjROB3y_cgV2wN9zco2nUfWIhwiTydtL5O6ynQ22_4zRbIL5rlwKGmwPWA&authuser=0" target="_blank" rel="noopener">Mankius Klaipėda</a></li>
+        <li><a href="https://www.google.com/search?q=Mankius+Vilnius&stick=H4sIAAAAAAAA_-NgU1I1qDAxS0mxNDZJSTEwSjW3tEyzMqiwNE82NTBOsQBSySlmBhaLWPl9E_OyM0uLFcIyc_KANADqdK00OwAAAA&hl=en&mat=CdHFKMLDlQQUElcBa0lj_12aa6YJYT0kK4extMdlhHI95j6BBWBDyxAYr_iNuHziMaUrdTpbx3Gytj21qD90NN31_Jot33oU_UgwZQEfFRBpXftMlrWCBtQdsbBe6_MghXI&authuser=0" target="_blank" rel="noopener">Mankius Vilnius</a></li>
+      </ul>
+    </div>
+
+  </div>
+      </div>
+    </div>
+
     <div class="nav-item all-items">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       <a href="https://mankius.lt/">Visos prekės</a>
@@ -458,6 +751,7 @@
     </a>
   </div>
 </div>
+
 
 <!-- KETURAČIAI PRODUCTS -->
 <section class="products-section">
@@ -735,45 +1029,6 @@
   </div>
 </section>
 
-<!-- EMBED: GOOGLE SHEET 1 -->
-<section class="embed-section">
-  <div class="embed-section-inner">
-    <div class="embed-header">
-    </div>
-    <div class="embed-frame-wrap">
-      <!-- Replace the src below with your published Google Sheets embed URL:
-           File → Share → Publish to web → Embed → Copy the iframe src -->
-      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR6GM_ovLRqaaS9nrSAKMi6xpSr_VvNvMK-6Uz0pM9fTRuqk7Osv92oBgBlLVVqkxcQVGQL23nOjoyi/pubhtml?widget=true&amp;headers=false" height="520" loading="lazy" title="sulankstomi elektriniai dviraciai"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- EMBED: GOOGLE SHEET 2 -->
-<section class="embed-section alt-bg">
-  <div class="embed-section-inner">
-    <div class="embed-header">
-    </div>
-    <div class="embed-frame-wrap">
-      <!-- Replace the src below with your published Google Sheets embed URL -->
-      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS__NzEYNEREkTsPc1KIg4Ow6C7aagPCHt-wbMbhmkKzK8-oZwaSoFZrTriG7Xs2pQu4DPRRmBQ0pua/pubhtml?widget=true&amp;headers=false" height="520" loading="lazy" title="elektrinis krosinis motociklas"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- EMBED: GOOGLE PRESENTATION -->
-<section class="embed-section">
-  <div class="embed-section-inner">
-    <div class="embed-header">
-    </div>
-    <!-- aspect-16-9 makes the iframe auto-resize to 16:9 at any width -->
-    <div class="embed-frame-wrap aspect-16-9">
-      <!-- Replace the src below with your Google Slides embed URL:
-           File → Share → Publish to web → Embed → Copy the iframe src -->
-      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTYTTADeoPRIXV9uu6kKG-2JGUwzG-K19DQS_OEjqumfz1cwlL3Jgvxq666Ync2g6cVGVmi5-tGekHX/embed?start=false&loop=false&delayms=3000" loading="lazy" allowfullscreen title="vokiski elektriniai dviraciai"></iframe>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -878,139 +1133,5 @@
   });
 </script>
 
-<div id="hidden-div" style="display:none">
-<a href="https://mankius.lt/">mankius</a>
-<a href="https://mankius.lt/3660-elektriniai-dviraciai">elektriniai dviraciai</a>
-<a href="https://mankius.lt/250-dviraciai-vaikams">dviraciai vaikams</a>
-<a href="https://mankius.lt/311-dviraciai-paaugliams">dviraciai paaugliams</a>
-<a href="https://mankius.lt/245-kalnu-dviraciai-mtb">kalnu dviraciai</a>
-<a href="https://mankius.lt/246-miesto-dviraciai">miesto dviraciai</a>
-<a href="https://mankius.lt/308-hibridiniai-dviraciai">hibridiniai dviraciai</a>
-<a href="https://mankius.lt/1229-turistiniai-dviraciai">turistiniai dviraciai</a>
-<a href="https://mankius.lt/1233-sulankstomi-dviraciai">sulankstomi dviraciai</a>
-<a href="https://mankius.lt/247-dviraciai-bmx">bmx dviraciai</a>
-<a href="https://mankius.lt/1261-plento-dviraciai">plento dviraciai</a>
-<a href="https://mankius.lt/1321-gravel-dviraciai">gravel dviraciai</a>
-<a href="https://mankius.lt/305-elektriniai-krosiniai-motociklai">elektriniai motociklai</a>
-<a href="https://mankius.lt/4229-mopedai-ir-motoroleriai">elektriniai motoroleriai</a>
-<a href="https://mankius.lt/4475-elektriniai-triraciai">elektriniai triraciai</a>
-<a href="https://mankius.lt/2751-elektromobiliai-vaikams-zaislai">elektromobiliai vaikams</a>
-<a href="https://mankius.lt/6725-mini-motociklai">mini motociklas</a>
-<a href="https://drive.google.com/drive/folders/1mgtU_Efb0IGlHkBAQ_JI7KQMm2koy7MK?usp=drive_link">elektriniai krosiniai motociklai</a>
-<a href="https://docs.google.com/presentation/d/1jJdSgxht2ybDIRyPGA28cNrhsyGfhSDsx24frrhf0vQ/edit?usp=drive_link">elektrinis krosinis motociklas</a>
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScA6STs96Kwwd6hkM0jtJTeZN2BT0dnUFKOqVXY7C89oMO13w/viewform?usp=publish-editor">elektriniai krosiniai motociklai vaikams</a>
-<a href="https://forms.gle/3jdbgHJeQwTztZ3U7">elektriniai motoroleriai</a>
-<a href="https://docs.google.com/drawings/d/1m29VQ6NRnwWIIb-TQp-8KlqgxwLu1lFG-ZYJ14G9miI/edit?usp=drive_link">mopedai</a>
-<a href="https://docs.google.com/spreadsheets/d/1cX5AKIoowLtIgPkVhXJzn4WTuxhAXT0VJ9CFvFVhkqo/edit?usp=drive_link">mopedas</a>
-<a href="https://maps.app.goo.gl/c9TTDg5kEjJZMPAx8">motoroleriai</a>
-<a href="https://docs.google.com/spreadsheets/d/1L99uFHXJmgVSIpV9sF5VE4QDVsOaSEPmikezXU5QSuU/edit?usp=drive_link">motoroleris</a>
-<a href="https://sites.google.com/view/mankius-kaunas/home">elektriniai triraciai</a>
-<a href="https://mankius.s3.eu-central-1.amazonaws.com/index.html">elektrinis triratis</a>
-<a href="https://storage.googleapis.com/digitals_clouds/mankius/index.html">elektrinis triratis senjorams</a>
-<a href="https://mankius.pages.dev/">elektromobiliai vaikams</a>
-<a href="https://mankius-lt.github.io/mankius/">elektriniai automobiliai vaikams</a>
-<a href="https://mankius.onrender.com">elektrines masinos vaikams</a>
-<a href="https://mankius.lt/2833-automobiliai">automobiliai</a>
-<a href="https://mankius.lt/2820-motociklai">motociklai</a>
-<a href="https://mankius.lt/2834-kartingai">kartingai</a>
-<a href="https://mankius.lt/2832-keturraciai-ir-bagiai">keturačiai ir bagiai</a>
-<a href="https://mankius.lt/2796-ekskavatoriai-ir-traktoriai">ekskavatoriai ir traktoriai</a>
-<a href="https://mankius.lt/80-dviraciu-dalys">dviračių dalys</a>
-<a href="https://mankius.lt/3882-motociklu-dalys">motociklų dalys</a>
-<a href="https://mankius.lt/2037-kartingu-dalys">kartingų dalys</a>
-<a href="https://mankius.lt/6048-moto-apsaugos">moto apsaugos</a>
-<a href="https://mankius.lt/6045-salmai">šalmai</a>
-<a href="https://mankius.lt/6728-skuteriai">skuteriai</a>
-<a href="https://mankius.lt/6657-neigaliuju-vezimeliai">neįgaliųjų vežimėliai</a>
-<a href="https://mankius.lt/4523-engwe-dviraciai">engwe dviračiai</a>
-<a href="https://mankius.lt/4524-ado-dviraciai">ado dviračiai</a>
-<a href="https://mankius.lt/6606-duotts-dviraciai">duotts dviračiai</a>
-<a href="https://mankius.lt/6664-foride-dviraciai">foride dviračiai</a>
-<a href="https://mankius.lt/4552-eleglide-dviraciai">eleglide dviračiai</a>
-<a href="https://mankius.lt/4567-romet-elektriniai-dviraciai">romet dviračiai</a>
-<a href="https://mankius.lt/4568-geobike-elektriniai-dviraciai">geobike dviračiai</a>
-<a href="https://mankius.lt/6605-touroll-dviraciai">touroll dviračiai</a>
-<a href="https://mankius.lt/6674-one-sport-elektriniai-dviraciai">one sport dviračiai</a>
-<a href="https://mankius.lt/6675-ovivo-elektriniai-dviraciai">ovivo dviračiai</a>
-<a href="https://mankius.lt/6736-surron-motociklai">Surron Motociklai</a>
-<a href="https://mankius.lt/6735-talaria-motociklai">Talaria Motociklai</a>
-<a href="https://mankius.lt/6737-riding-times-motociklai">Riding Times Motociklai</a>
-<a href="https://mankius.lt/6738-kayo-motociklai">Kayo Motociklai</a>
-<a href="https://mankius.lt/6734-goes-keturraciai">Goes Keturračiai</a>
-<a href="https://mankius.lt/6739-kayo-keturraciai">Kayo Keturračiai</a>
-<a href="https://mankius.lt/lt/4229-mopedai-ir-motoroleriai">elektriniai motoroleriai</a>
-<a href="https://mankius.lt/lt/4475-elektriniai-triraciai">elektriniai triraciai</a>
-<a href="https://mankius.lt/motociklai/611460-elektrinis-motociklas-surron-light-bee-l1e.html">Surron Light Bee L1E</a>
-<a href="https://mankius.lt/motociklai/608951-elektrinis-motociklas-talaria-sting-pro-mx5-l1e-registruojamas.html">Talaria Sting Pro MX5</a>
-<a href="https://mankius.lt/elektriniai-krosiniai-motociklai/555609-vaikiskas-krosinis-motociklas-kayo-ekmb.html">Kayo EKMB</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550868-vaikiskas-krosinis-motociklas-kayo-ts70.html">Kayo TS70</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550870-vaikiskas-krosinis-motociklas-kayo-ts90.html">Kayo TS90</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550866-vaikiskas-krosinis-motociklas-kayo-tsd110.html">Kayo TSD110</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550872-vaikiskas-krosinis-motociklas-kayo-td110efi.html">Kayo TD110 EFI</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550871-vaikiskas-krosinis-motociklas-kayo-td125.html">Kayo TD125</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550880-krosinis-motociklas-kayo-tt125.html">Kayo TT125</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550873-krosinis-motociklas-kayo-tt125-efi.html">Kayo TT125 EFI</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550881-motociklas-kayo-tt140.html">Kayo TT140</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550882-krosinis-motociklas-kayo-tt160.html">Kayo TT160</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550877-krosinis-motociklas-kayo-tt190r.html">Kayo TT190R</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550875-motociklas-kayo-k2-enduro.html">Kayo K2 Enduro</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550874-krosinis-motociklas-kayo-k2-pro.html">Kayo K2 Pro</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550876-motociklas-kayo-t2-enduro.html">Kayo T2 Enduro</a>
-<a href="https://mankius.lt/benzininiai-krosiniai-motociklai/550879-motociklas-kayo-250-efi.html">Kayo 250 EFI</a>
-<a href="https://mankius.lt/engwe-dviraciai/608237-dviratis-26-elektrinis-engwe-e26-st-moteriskas-juodas.html">Engwe E26 ST juodas</a>
-<a href="https://mankius.lt/engwe-dviraciai/611847-dviratis-26-elektrinis-engwe-e26-st-moteriskas-zalias.html">Engwe E26 ST zalias</a>
-<a href="https://mankius.lt/elektriniai-dviraciai/514666-9043-engwe-engine-pro-20-elektrinis-dviratis.html">Engwe Engine Pro</a>
-<a href="https://mankius.lt/elektriniai-dviraciai/514650-9031-engwe-ep-2-pro-750w-elektrinis-dviratis-fat-bike.html">Engwe EP-2 Pro 750W</a>
-<a href="https://mankius.lt/engwe-dviraciai/546818-dviratis-20-elektrinis-engwe-ep-2-pro-juodas.html">Engwe EP-2 Pro juodas</a>
-<a href="https://mankius.lt/engwe-dviraciai/546840-dviratis-20-elektrinis-engwe-ep-2-pro-pilkas.html">Engwe EP-2 Pro pilkas</a>
-<a href="https://mankius.lt/engwe-dviraciai/610954-engwe-ep-2-pro-elektrinis-dviratis-20-spalva-ruda.html">Engwe EP-2 Pro rudas</a>
-<a href="https://mankius.lt/engwe-dviraciai/549053-17889-engwe-ep-2-pro-boost-elektrinis-dviratis-fat-bike.html">Engwe EP-2 Pro Boost</a>
-<a href="https://mankius.lt/engwe-dviraciai/549052-17888-engwe-ep-2-pro-750w-elektriniai-dviraciai-2-vienetai-pigiau.html">Engwe EP-2 Pro komplektas</a>
-<a href="https://mankius.lt/miesto-turistiniai-elektriniai-dviraciai/546404-dviratis-20-elektrinis-engwe-l20-boost-zalias.html">Engwe L20 Boost zalias</a>
-<a href="https://mankius.lt/pagrindinis/543006-26788-engwe-l20-30-boost-elektrinis-dviratis.html">Engwe L20 3.0 Boost</a>
-<a href="https://mankius.lt/engwe-dviraciai/543929-11294-engwe-m1-elektrinis-dviratis.html">Engwe M1</a>
-<a href="https://mankius.lt/engwe-dviraciai/546413-dviratis-20-elektrinis-engwe-m1-viena-baterija-juodas.html">Engwe M1 juodas</a>
-<a href="https://mankius.lt/pagrindinis/543008-11196-engwe-m1-elektrinis-dviratis-2-baterijos.html">Engwe M1 2 baterijos</a>
-<a href="https://mankius.lt/engwe-dviraciai/546414-dviratis-20-elektrinis-engwe-m1-dviguba-baterija-geltonas.html">Engwe M1 geltonas</a>
-<a href="https://mankius.lt/miesto-turistiniai-elektriniai-dviraciai/546393-dviratis-20-elektrinis-engwe-m20-viena-baterija-baltas.html">Engwe M20 baltas</a>
-<a href="https://mankius.lt/engwe-dviraciai/607403-dviratis-20-elektrinis-engwe-m20-viena-baterija-zalias.html">Engwe M20 zalias</a>
-<a href="https://mankius.lt/engwe-dviraciai/549083-27971-engwe-m20-elektrinis-dviratis-2-baterijos.html">Engwe M20 2 baterijos</a>
-<a href="https://mankius.lt/engwe-dviraciai/611909-dviratis-20-elektrinis-engwe-m20-dviguba-baterija-juodas.html">Engwe M20 juodas</a>
-<a href="https://mankius.lt/engwe-dviraciai/555986-dviratis-20-elektrinis-engwe-m20-dviguba-baterija-zalias.html">Engwe M20 dviguba zalias</a>
-<a href="https://mankius.lt/engwe-dviraciai/546420-dviratis-28-elektrinis-engwe-n1-air-vyr-karboninis-juodas.html">Engwe N1 Air vyriskas</a>
-<a href="https://mankius.lt/engwe-dviraciai/546421-dviratis-28-elektrinis-engwe-n1-air-st-mot-karboninis-juodas.html">Engwe N1 Air ST</a>
-<a href="https://mankius.lt/engwe-dviraciai/546423-dviratis-28-elektrinis-engwe-n1-pro-vyr-karboninis-juodas.html">Engwe N1 Pro juodas</a>
-<a href="https://mankius.lt/engwe-dviraciai/546424-dviratis-28-elektrinis-engwe-n1-pro-vyr-karboninis-zalias.html">Engwe N1 Pro zalias</a>
-<a href="https://mankius.lt/miesto-turistiniai-elektriniai-dviraciai/546399-dviratis-275-elektrinis-engwe-p275-st-balta-oranzine.html">Engwe P275 ST</a>
-<a href="https://mankius.lt/engwe-dviraciai/611242-dviratis-14-elektrinis-engwe-t14-oranzinis.html">Engwe T14 oranzinis</a>
-<a href="https://mankius.lt/engwe-dviraciai/610953-engwe-x26-elektrinis-dviratis-26-spalva-juoda.html">Engwe X26 juodas</a>
-<a href="https://mankius.lt/engwe-dviraciai/546815-dviratis-26-elektrinis-engwe-x26-dviguba-baterija-pilkas.html">Engwe X26 pilkas</a>
-<a href="https://mankius.lt/dviraciai-paspirtukai-dalys/609779-elektrinis-paspirtukas-inokim-oxo-10-atnaujintas.html">Inokim OXO 10</a>
-<a href="https://www.google.com/search?q=Mankius+Kaunas&stick=H4sIAAAAAAAA_-NgU1I1qDAxSzU3tDRLSTJMSjOzTDK1MqhIM0w1s7A0NjRKTDROTko2WsTK55uYl51ZWqzgnVial1gMAFbDjnA6AAAA&hl=en&mat=Car-bDHK52adElYBa0lj_9WG2ct68pdogYqiTIXrLZcgBzg64lft4y7ipEO1SOniIRou1tq1OD1A0vlG2N6hImJqOfxHtWuS2HEMjqSc1KuuULs4fg3BME3RxHrSqN2-UA&authuser=0">Mankius parduotuve Kaunas</a>
-<a href="https://www.google.com/search?q=Mankius+Klaip%C4%97da&stick=H4sIAAAAAAAA_-NgU1I1qDAxSzVJSUlLTrYwMLVMMja0MqhISrRIMzUzTDWwsEhJtUg1W8Qq6JuYl51ZWqzgnZOYWXBkekoiABSQ8mk9AAAA&hl=en&mat=CY03IUpSGlbaElYBa0lj_0IGVn8o1XxwZurVBVawD3_z4Kjmrq5JMYX7-dcO37vPDkXj6xhPYjROB3y_cgV2wN9zco2nUfWIhwiTydtL5O6ynQ22_4zRbIL5rlwKGmwPWA&authuser=0">Mankius parduotuve Klaipeda</a>
-<a href="https://www.google.com/search?q=Mankius+Vilnius&stick=H4sIAAAAAAAA_-NgU1I1qDAxS0mxNDZJSTEwSjW3tEyzMqiwNE82NTBOsQBSySlmBhaLWPl9E_OyM0uLFcIyc_KANADqdK00OwAAAA&hl=en&mat=CdHFKMLDlQQUElcBa0lj_12aa6YJYT0kK4extMdlhHI95j6BBWBDyxAYr_iNuHziMaUrdTpbx3Gytj21qD90NN31_Jot33oU_UgwZQEfFRBpXftMlrWCBtQdsbBe6_MghXI&authuser=0">Mankius parduotuve Vilnius</a>
-<a href="https://mankius.lt/kayo-keturraciai/612551-benzininis-keturratis-kayo-a50.html">KAYO A50</a>
-<a href="https://mankius.lt/elektriniai-bagiai/555612-vaikiskas-akumuliatorinis-bagis-kayo-es70.html">KAYO eS70</a>
-<a href="https://mankius.lt/benzininiai-keturraciai/550178-vaikiskas-keturratis-kayo-ay70.html">KAYO A70</a>
-<a href="https://mankius.lt/elektriniai-keturraciai/555620-vaikiskas-akumuliatorinis-keturratis-kayo-ea110.html">KAYO eA70</a>
-<a href="https://mankius.lt/benzininiai-keturraciai/550330-vaikiskas-keturratis-kayo-at125.html">KAYO AT125</a>
-<a href="https://mankius.lt/benzininiai-keturraciai/550335-vaikiskas-keturratis-kayo-au110.html">KAYO AU110</a>
-<a href="https://mankius.lt/benzininiai-keturraciai/550331-vaikiskas-keturratis-su-ipurskimu-kayo-at125-efi.html">KAYO AT125 EFI</a>
-<a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550339-vaikiskas-keturratis-kayo-au150cvt.html">KAYO AU150 CVT</a>
-<a href="https://mankius.lt/benzininiai-keturraciai/550338-vaikiskas-keturratis-kayo-au150-efi.html">KAYO AU150 EFI</a>
-<a href="https://mankius.lt/benzininiai-keturraciai/550332-benzininis-keturratis-kayo-a200.html">KAYO A200</a>
-<a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550341-vaikiskas-keturratis-kayo-au180.html">KAYO AU180</a>
-<a href="https://mankius.lt/elektriniai-bagiai/555616-benzininis-bagis-kayo-s150.html">KAYO S150</a>
-<a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550342-keturratis-kayo-au200-t3b-registruojamas.html">KAYO AU200 T3B</a>
-<a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550333-keturratis-kayo-a300.html">KAYO A300</a>
-<a href="https://mankius.lt/elektriniai-bagiai/555613-vaikiskas-bagis-kayo-s70.html">KAYO S70 benzininis bagis</a>
-<a href="https://mankius.lt/benzininiai-keturraciai-suaugusiems/550343-keturratis-kayo-au300-efi-t3b.html">KAYO AU300 EFI T3B</a>
-<a href="https://mankius.lt/mototechnika/611455-goes-terrox-550l-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 550L</a>
-<a href="https://mankius.lt/mototechnika/611457-goes-terrox-1000-premium-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 1000 Premium</a>
-<a href="https://mankius.lt/mototechnika/611454-goes-terrox-400l-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 400L</a>
-<a href="https://mankius.lt/mototechnika/611456-goes-terrox-1000-standard-keturratis-ratinis-traktorius-t3b.html">GOES Terrox 1000 Standard</a>
-<a href="https://mankius.lt/pagrindinis/612553-elektrinis-motociklas-talaria-x3-pro.html">Talaria X3 Pro</a>
-<a href="https://mankius.lt/pagrindinis/612540-elektrinis-motociklas-talaria-komodo.html">Talaria Komodo</a>
-</div>
 </body>
 </html>
